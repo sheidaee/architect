@@ -1,0 +1,993 @@
+<section id="viewport" class="clearfix">
+	<div class="flyout-from-right">
+		<div class="flyout-content" id="themes-panel">
+			<div></div>
+
+			<section class="row inner-content">			
+				<div class="col-sm-6" id="themes-list"></div>
+				<div class="col-sm-6" id="themes-preview"></div>
+			</section>
+
+			<section class="row flyout-panel-toolbar">
+				<div class="inner">
+					<button class="btn btn-success" id="create-new-theme-button">createNew</button>
+
+					<select>
+						<option value="">all</option>
+						<option value="bootswatch">bootswatch</option>
+						<option value="yours">yours</option>
+						<option value="public">architectPublic</option>
+					</select>
+
+					<input type="text" placeholder="Search...">
+
+					<button class="btn btn-info">export</button>
+
+					<div class="error-message"><span class="text-danger"></span></div>
+				</div>
+			</section>
+		</div>
+		<div class="flyout-content" id="bootstrap-theme-creator">
+			<div></div>
+			<input id="theme-creator-color-picker">
+			<section class="row inner-content">
+				<div id="custom-less">
+					<div class="header">editCustomLess <i class="fa fa-times"></i></div>
+					<div id="custom-less-editor"></div>
+				</div>
+				<div class="col-sm-2 vars-groups-list">
+					<ul class="list-unstyled">
+						<li data-name="">
+							<i style="padding-right: 5px;" class="fa fa-angle-double-right"></i>
+							<span></span>
+						</li>
+					</ul>
+				</div>
+				<div class="col-sm-2 vars-values-list">
+					<ul class="list-unstyled">
+						<li>
+							<div class="form-group">
+								<label></label>
+								<input data-name="" class="form-control" type="text">
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="col-sm-8 theme-creator-preview"></div>
+			</section>
+			<section class="row flyout-panel-toolbar" id="theme-creator-toolbar">
+				<div data-toggle="tooltip" data-placement="top" title="Back to themes" class="back-icon">
+					<i class="fa fa-chevron-left"></i>
+				</div>
+				
+				<div class="inner">
+					<button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Apply changes to preview">apply</button>
+					<button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Add or edit custom less">customLess</button>
+
+					<input type="text" ng-model="editing.name" placeholder="Name...">
+					<select>
+						<option value="private">private</option>
+						<option value="public">public</option>
+					</select>
+					<button class="btn btn-success">save</button>
+					
+					<div class="loader"><i class="fa fa-spinner fa-spin"></i></div>
+					<div class="error-message"><span class="text-danger"></span></div>
+					<div class="save-status">
+						<span class="text-success">allChangesSaved</span>
+						<span class="text-danger">unsavedChanges</span>
+					</div>
+				</div>
+			</section>
+		</div>
+		<div class="flyout-content" id="export-panel">
+			<div></div>
+
+			<div class="demo-overlay"><p class="alert alert-info">Export functionality is disabled on demo site. Normally you would be able to export an entire project, a single page or image(s) in a .zip file or copy any of the pages markup or styles into clipboard.</p></div>
+
+			<div class="row inner-content">
+
+				<div class="images-column">
+					<h2><span>images</span></h2>
+					<ul class="list-unstyled">
+						<li></li>
+					</ul>
+				</div>
+				<div class="html-column">
+					<h2><span>markup</span> <button id="copy-html" class="btn btn-default">copyToClipboard</button></h2>
+					<div id="html-export-preview"></div>
+				</div>
+				<div class="css-column">
+					<h2><span>style</span> <button id="copy-css" class="btn btn-default">copyToClipboard</button></h2>
+					<div id="css-export-preview"></div>
+				</div>
+			</div>
+			
+			<div class="row flyout-panel-toolbar">
+				<div class="center-block">
+					<select>
+						<option value=""></option>
+					</select>
+
+					<button class="btn btn-primary"><i class="fa fa-download"></i> Export Page</button>
+					<button class="btn btn-success"><i class="fa fa-download"></i> exportProject</button>
+				</div>
+			</div>
+		</div>
+		<div class="flyout-content" id="pages-panel">
+			<div></div>
+			<div class="row inner-content">
+				<section class="col-lg-2 col-xs-4" id="pages-list">
+					<div class="header">
+						<div class="pull-left">pages</div>
+						<button class="btn btn-primary pull-right"><i class="fa fa-plus"></i> add</button>
+					</div>
+					<div class="body">
+						<ul class="list-unstyled">
+							<li>
+								<span class="name"></span>
+							</li>
+						</ul>
+					</div>
+					<div class="footer clearfix">
+						<button class="btn btn-danger pull-left"><i class="fa fa-trash"></i> emptyProject</button>
+						<div ng-if="loading" class="spinner pull-right"><i class="fa fa-spinner fa-spin"></i></div>
+					</div>
+				</section>
+				<section class="col-lg-10 col-xs-8" id="edit-page">
+					<div class="inner">
+						<div class="page-settings">
+							<h2>edit <span></span> page</h2>
+
+							<div class="form-group">
+								<label for="page-name">pageName</label>
+								<input type="text" class="form-control" name="page-name">
+							</div>
+
+							<div class="form-group">
+								<label for="page-title">pageTitle</label>
+								<input type="text" class="form-control" name="page-title">
+							</div>
+
+							<div class="form-group">
+								<label for="page-description">pageDescription</label>
+								<textarea name="page-description" rows="5" class="form-control"></textarea>
+							</div>
+
+							<div class="form-group">
+								<label for="page-tags">pageTags</label>
+								<textarea name="page-tags" rows="5" class="form-control"></textarea>
+							</div>
+						</div>
+						<div class="page-preview">
+							
+						</div>
+					</div>
+					<div class="footer">
+						<button class="btn btn-default btn-lg">deletePage</button>
+						<button class="btn btn-default btn-lg">copyPage</button>
+						<button class="btn btn-success btn-lg">savePage</button>
+					</div>
+					<div class="no-page-selected">noPagesFound</div>
+				</section>			
+			</div>
+		</div>
+		<div class="flyout-content" id="settings-panel">
+			<div></div>
+			<div class="row inner-content">
+				<div class="col-md-1 categories">
+					<ul class="list-unstyled">
+						<li></li>
+					</ul>
+				</div>
+				<div class="col-md-11 settings">
+					<h2></h2>
+					<div class="form-group">
+						<div class="with-toggle">
+							<div class="label"></div>
+							<div class="toggle toggle-light" data-name=""></div>
+							<p class="help-block"></p>
+						</div>
+						<div class="with-input">
+							<div class="label"></div>
+							<input type="text" class="form-control">
+							<p class="help-block"></p>
+						</div>
+					</div>
+				</div>
+			</div>			
+		</div>
+		<div class="flyout-content" id="templates-panel">
+			<div bl-close-flyout-panel></div>
+
+			<section class="row inner-content">			
+				<div class="col-sm-6" id="templates-list"></div>
+				<div class="col-sm-6" id="templates-preview"></div>
+			</section>
+
+			<section class="row flyout-panel-toolbar">
+				<span>withSelected</span>
+				<button class="btn btn-primary use-template">use</button>
+				<button class="btn btn-primary edit-template">edit</button>
+				<button class="btn btn-danger delete-template">delete</button>
+
+				<button class="btn btn-success save-page-as-template">saveAsTemplate</button>
+				<div class="loader"><i class="fa fa-spinner fa-spin"></i></div>
+			</section>
+
+				<div class="modal fade" id="save-template-modal">
+					<div class="modal-dialog">
+				    	<div class="modal-content">
+				      		<div class="modal-header clearfix">
+				        		<button type="button" class="close pull-right" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">close</span></button>
+				        		<h4 class="modal-title">createEditTemplate</h4>
+				      		</div>
+				      		<div class="modal-body">
+				        		<div class="form-group">
+				        			<label for="name">templateName</label>
+				        			<input type="text" class="form-control" name="name">
+				        		</div>
+				        		<div class="form-group">
+				        			<label for="category">templateCategory</label>
+				        			<select name="category" class="form-control">
+				        				<option value=""></option>
+				        			</select>
+				        		</div>
+				        		<div class="form-group">
+				        			<label for="color">templatePrimaryColor</label>
+				        			<select name="color" class="form-control">
+				        				<option></option>
+				        			</select>
+				        		</div>
+				        		<div class="checkbox">
+								    <label>
+								      	<input type="checkbox">
+								      	<span>replaceTemplateContents</span>
+								    </label>
+								</div>
+				        		<div class="text-danger"></div>
+				      		</div>
+				      		<div class="modal-footer">
+				      			<button class="btn btn-success">saveAndClose</button>
+				      		</div>
+				    	</div>
+				  	</div>
+				</div>
+		</div>
+	</div>
+	<div id="description-container"></div>
+	<aside id="elements-container">
+		<section id="elements-panel">
+			<div class="panel-inner">
+				<section id="el-panel-top">
+                    <h2 class="panel-title clearfix">
+                        <div class="panel-name open" id="el-panel-name">
+                            <span class="pull-right">المان ها</span>
+                            <i  class="fa fa-search pull-left"></i>
+                        </div>
+                        <div id="panel-search" class="panel-heading-input">
+                            <input type="text" class="pull-right rtl" id="el-search" placeholder="جستجوی المان ها">
+							<span class="fa-stack fa-lg pull-left">
+							  <i class="fa fa-circle fa-stack-2x"></i>
+							  <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+							</span>
+                        </div>
+                    </h2>
+					<div id="el-preview-container">
+						<iframe frameborder="0"></iframe>
+					</div>
+				</section>
+				<div id="el-panel-bot">
+					<div id="elements-list">
+						<div class="elements-box" id="layout">
+							<h3 class="bl-panel-heading">layout <i class="fa fa-minus"></i></h3>
+							<ul class="list-unstyled"></ul>
+						</div>
+						<div class="elements-box" id="media">
+							<h3 class="bl-panel-heading">media <i class="fa fa-minus"></i></h3>
+							<ul class="list-unstyled"></ul>
+						</div>
+						<div class="elements-box" id="typography">
+							<h3 class="bl-panel-heading">typography <i class="fa fa-minus"></i></h3>
+							<ul class="list-unstyled"></ul>
+						</div>
+						<div class="elements-box" id="buttons">
+							<h3 class="bl-panel-heading">buttons <i class="fa fa-minus"></i></h3>
+							<ul class="list-unstyled"></ul>
+						</div>
+						<div class="elements-box" id="components">
+							<h3 class="bl-panel-heading">components <i class="fa fa-minus"></i></h3>
+							<ul class="list-unstyled"></ul>
+						</div>
+						<div class="elements-box" id="forms">
+							<h3 class="bl-panel-heading">forms <i class="fa fa-minus"></i></h3>
+							<ul class="list-unstyled"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<div class="sidebar-toggler left"> <div class="toggler-carret"></div></div>
+	</aside>
+	<div id="middle">
+		<section id="breadcrumbs">
+			<ol class="breadcrumb">
+				<li><a href=""></a></li>
+			</ol>
+
+			<div id="context-menu">
+				<h5 class="clearfix"><span class="name"></span><i class="fa fa-times"></i> </h5>
+				<ul class="list-unstyled">
+					<li><div class="command-name">addRowBefore</div></li>
+					<li><div class="command-name">addRowAfter</div></li>
+					<li><div class="command-name">addColumnBefore</div></li>
+					<li><div class="command-name">AddColumnAfter</div></li>
+					<li class="separator"></li>
+					<li><div class="command-name"><i class="fa fa-cut"></i> SelectParent</div></li>
+					<li><div class="command-name"><i class="fa fa-bullseye"></i> WrapInTransparentDiv</div></li>
+					<li class="separator"></li>
+					<li><div class="command-name"><i class="fa fa-cut"></i> cut</div><div class="command-keybind">Ctrl+X</div></li>
+					<li><div class="command-name"><i class="fa fa-copy"></i>copy Copy</div><div class="command-keybind">Ctrl+C</div></li>
+					<li><div class="command-name"><i class="fa fa-paste"></i> paste</div><div class="command-keybind">Ctrl+V</div></li>
+					<li><div class="command-name"><i class="fa fa-trash-o"></i> delete</div><div class="command-keybind">Del</div></li>
+					<li><div class="command-name"><i class="fa fa-database"></i> duplicate</div></li>
+					<li class="separator"></li>
+					<li><div class="command-name"><i class="fa fa-chevron-up"></i> moveUp</div><div class="command-keybind">&#8593;</div></li>
+					<li><div class="command-name"><i class="fa fa-chevron-down"></i> moveDown</div><div class="command-keybind">&#8595;</div></li>
+					<li class="separator"></li>
+					<li><div class="command-name"><i class="fa fa-undo"></i> undo</div><div class="command-keybind">Ctrl+Z</div></li>
+					<li><div class="command-name"><i class="fa fa-repeat"></i> redo</div><div class="command-keybind">Ctrl+Z</div></li>
+					<li class="separator"></li>
+					<li><div class="command-name">viewSource</div></li>
+				</ul>
+			</div>
+		</section>
+		<div id="frame-wrapper"> <!-- bl-iframe-context-menu> -->
+			<section id="highlights">
+				<div id="linker" class="hidden">
+					<h3>linkFor <span></span> <i class="fa pull-right fa-times"></i></h3>
+					<ul>
+						<li>
+							<label class="pull-left">
+								<div class="radio-input"><input value="url" type="radio"></div>
+							</label>
+							<div class="pull-right">
+								<div class="title">websiteUrl</div>
+								<div class="body">
+									<input class="form-control" type="text" placeholder="http://www.google.com">
+								</div>
+							</div>
+						</li>
+						<li>
+							<label class="pull-left">
+								<div class="radio-input"><input value="page" type="radio"></div>
+							</label>
+							<div class="pull-right">
+								<div class="title">page</div>
+								<div class="body">
+									<select class="form-control">
+										<option value="">selectAPage</option>
+										<option value=""></option>
+									</select>
+								</div>
+							</div>
+						</li>
+						<li>
+							<label class="pull-left">
+								<div class="radio-input"><input value="download" type="radio"></div>
+							</label>
+							<div class="pull-right">
+								<div class="title">download</div>
+								<div class="body">
+									<input class="form-control" type="text" placeholder="https://www.google.com/images/srpr/logo11w.png">
+								</div>
+							</div>
+						</li>
+						<li>
+							<label class="pull-left">
+								<div class="radio-input"><input value="email" type="radio"></div>
+							</label>
+							<div class="pull-right">
+								<div class="title">emailAddress</div>
+								<div class="body">
+									<input class="form-control" type="text" placeholder="vebtolabs@gmail.com">
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div></div>
+				<div id="select-box">
+					<div id="select-box-actions">
+						<span class="element-tag"></span>
+						<i class="fa fa-pencil" data-action="edit"></i>
+						<i class="fa" data-action="lock"></i>
+						<i class="fa fa-trash-o" data-action="delete"></i>
+					</div>
+					<div id="column-resizers"></div>
+					<div id="resize-handles">
+						<span data-direction="nw" class="drag-handle nw-handle"></span>
+						<span data-direction="n" class="drag-handle n-handle"></span>
+						<span data-direction="ne" class="drag-handle ne-handle"></span>
+						<span data-direction="e" class="drag-handle e-handle"></span>
+						<span data-direction="se" class="drag-handle se-handle"></span>
+						<span data-direction="s" class="drag-handle s-handle"></span>
+						<span data-direction="sw" class="drag-handle sw-handle"></span>
+						<span data-direction="w" class="drag-handle w-handle"></span>
+					</div>
+				</div>
+				<div id="edit-columns"><i class="fa fa-gear"></i> <span>editColumns</span></div>
+				<div id="row-editor">
+					<div class="column-controls"></div>
+					<div class="row-presets clearfix">
+						<button class="btn btn-sm btn-default equalize-columns pull-left">makeColsEqual</button>
+						<div class="pull-right"></div>
+					</div>
+					<div class="column-controls-footer clearfix">
+						<i class="fa fa-times close-row-editor"></i>
+						<button class="btn btn-sm btn-primary pull-right save-and-close-row-editor">saveAndClose</button>
+					</div>
+				</div>
+				<div id="text-toolbar">
+					
+					<select id="toolbar-size" data-width="120">
+						<option value="">size</option>
+						<option data-font-size=""></option>
+					</select>
+					<select id="toolbar-font" data-width="150">
+						<option value="">font</option>
+						<option data-font-family=""></option>
+					</select>
+					<div id="toolbar-style">
+						<div class="bold">B</div>
+						<div class="italic">I</div>
+						<div class="underline">U</div>
+						<div class="strike">S</div>
+
+						<div class="wrap-link"><i class="fa fa-link"></i></div>
+
+						<div class="align-left"><i class="fa fa-align-left"></i> </div>
+						<div class="align-center"><i class="fa fa-align-center"></i> </div>
+						<div class="align-right"><i class="fa fa-align-right"></i> </div>
+
+						<div class="show-icons-list"><i class="fa fa-smile-o"></i> </div>
+						<section id="icons-list">
+							<div class="arrow-up"></div>
+							<input type="text" placeholder="Search for icons">
+							<ul class="list-unstyled list-inline">
+								<li class="icon"><i class=""></i></li>
+							</ul>
+						</section>
+					</div>
+					<div id="link-details" class="hidden">
+						<input type="text" class="form-control" placeholder="Url...">
+						<input type="text" class="form-control" placeholder="Title...">
+						<button type="button" class="btn btn-success" id="wrap-with-link">Go</button>
+					</div>
+				</div>
+			</section>
+			<iframe id="iframe" frameborder="0" class="full-width"></iframe>
+			<div id="frame-overlay" class="hidden"></div>
+			<div id="theme-loading" class="hidden"><span>در حال بار گذاری.</span></div>
+			<div id="code-editor-wrapper">
+				<div id="editor-header" class="clearfix">
+					<div class="pull-left">
+						<select class="pretty-select"></select>
+					</div>
+					<div class="pull-right" id="editor-icons">
+						<button class="btn btn-success btn-sm" type="button">html</button>
+						<button class="btn btn-success btn-sm" type="button">css</button>
+						<button class="btn btn-success btn-sm" type="button">js</button>
+						<button class="btn btn-sm with-icon expand-editor"><i class="fa fa-expand"></i> </button>
+						<button class="btn btn-sm with-icon close-editor"><i class="fa fa-times"></i> </button>
+					</div>
+				</div>
+				<div class="code-editor" id="html-code-editor"></div>
+				<div class="code-editor hidden" id="css-code-editor"></div>
+				<div class="code-editor hidden clearfix" id="js-code-editor">
+					<div class="col-sm-10 editor-column" id="jscript-code-editor"></div>
+					<div class="col-sm-2 libraries-column rtl">
+						<div class="body">
+                            <h4 class="clearfix"><i class="fa fa-plus pull-left new-library"></i> <span>کتابخانه ها</span></h4>
+
+                            <input type="text" class="form-control" placeholder="جستجو...">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> فقط پیوست شده ها
+                                </label>
+                            </div>
+
+                            <ul class="libraries-list">
+                                <li>
+                                    <i class="fa fa-link"></i>
+                                    <span class="name"></span>
+                                    <div class="lib-actions">
+                                        <i title="ویرایش کتابخانه" class="fa fa-gears edit-library"></i>
+                                        <i title="حذف کتابخانه" class="fa fa-trash-o delete-library"></i>
+                                    </div>
+                                </li>
+                            </ul>
+
+						</div>
+					</div>
+
+                    <div class="modal fade rtl" id="new-library-modal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close pull-left" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-titlet">ایجاد کتابخانه جدید</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="name">نام کتابخانه</label>
+                                        <input type="text" class="form-control" name="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="path">آدرس کتابخانه</label>
+                                        <input type="text" class="form-control" name="path">
+                                        <p class="help-block">لینک به فایل کتابخانه، آدرس کتابخانه در اینترنت.</p>
+                                    </div>
+                                    <p class="text-danger"></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-danger close-modal">بستن</button>
+                                    <button class="btn btn-success pull-left save-library">ذخیره و بستن</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<aside id="inspector">
+		<div id="inspector-overlay"><span>toEditStylesPlease</span></div>
+		<section id="inspector-inner">
+			<div>
+				<h2 class="panel-title clearfix">
+					<div class="panel-name open">
+						<span class="pull-left"></span>
+						<i class="fa fa-filter pull-right" data-toggle="tooltip" data-placement="left" title="Filter Categories"></i>
+						<i class="fa fa-css3 pull-right" data-toggle="tooltip" data-placement="left" title="Edit CSS Selector"></i>
+					</div>
+					<div class="panel-heading-input">
+						<input type="text" class="pull-left" id="css-selector" placeholder="Search Elements...">
+						<span class="fa-stack fa-lg pull-right">
+						  <i class="fa fa-circle fa-stack-2x"></i>
+						  <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+						</span>
+					</div>
+				</h2>
+
+				<select id="inspector-filter-select" class="form-control hidden"></select>
+			</div>
+
+			<div class="inspector-panel" id="attributes-panel">
+
+				<div id="visibility">
+					<ul class="list-unstyled list-inline">
+						<li data-size="xs" data-toggle="tooltip" data-placement="top" title="visible on mobile"><i class="fa fa-fw fa-mobile-phone"></i></li>
+						<li data-size="sm" data-toggle="tooltip" data-placement="top" title="visible on tablet"><i class="fa fa-fw fa-tablet"></i></li>
+						<li data-size="md" data-toggle="tooltip" data-placement="top" title="visible on laptop"><i class="fa fa-fw fa-laptop"></i></li>
+						<li data-size="lg" data-toggle="tooltip" data-placement="top" title="visible on desktop"><i class="fa fa-fw fa-desktop"></i></li>
+					</ul>
+				</div>
+				
+				<h4 class="bl-panel-heading">attributes <i class="fa fa-minus"></i></h4>
+				<div class="panel-box">
+					<div id="custom-attributes">
+						<div class="form-group">
+							<label for=""></label>
+
+							<!-- Render custom text input option -->
+								<input type="text" id="">
+							<!-- Render custom select input option -->
+								<select id="" class="pretty-select"></select>
+							<!-- /end custom options -->
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="el-id">float</label>
+						<select id="el-float" class="pretty-select">
+							<option value="none">none</option>
+							<option value="pull-left">left</option>
+							<option value="center-block">center</option>
+							<option value="pull-right">right</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="el-id">id</label>
+						<input class="pull-right" type="text" id="el-id">
+					</div>
+
+					<div class="clearfix">
+						<label for="el-id">class</label>
+						<div id="el-class">
+							<ul class="list-unstyled list-inline">
+								<li class="label"> <i class="fa fa-times"></i></li>
+							</ul>
+							<div id="addclass-flyout" class="hidden">
+								<input type="text" id="addclass-input">
+								<button class="btn btn-sm btn-success add-class"> <i class="fa fa-check"></i></button>
+							</div>
+						</div>
+					</div>
+
+					<button type="button" class="btn btn-primary btn-block">mediaManager</button>
+				</div>
+			</div>
+
+			<section id="background-panel" class="inspector-panel">
+				<h4 class="bl-panel-heading">background <i class="fa fa-minus"></i></h4>
+
+				<div class="panel-box">
+					<div class="color-picker-trigger" id="fill-color"><div class="background-box"><i class="fa fa-paint-brush"></i></div><div class="background-name">color</div></div>
+					<div id="image"><div class="background-box"><i class="fa fa-image"></i></div><div class="background-name">image</div></div>
+					<div id="gradient"><div class="background-box"><i class="fa fa-eyedropper"></i></div><div class="background-name">gradient</div></div>
+				</div>
+
+				<div id="background-flyout-panel" class="hidden">
+					<div class="bl-panel-header clearfix"><div class="name">background</div><div class="bl-panel-btns"><i class="fa fa-times"></i></div></div>
+					<button type="button" class="btn btn-primary btn-block">mediaManager</button>
+					<div id="texturePresets">
+						<h5>textures</h5>
+						<ul class="img-presets-list">
+							<li>
+								<div class="preset">
+							</li>
+						</ul>
+						<div id="image-properties">
+							<h5>imageProperties</h5>
+							<div id="img-positioning" class="clearfix">
+								<div class="pull-left">
+									<h6>repeat</h6>
+									<ul class="list-unstyled">
+										<li><div class="radio"><label><input value="no-repeat" type="radio">none</label></div></li>
+										<li><div class="radio"><label><input value="repeat-x" type="radio">horizontal</label></div></li>
+										<li><div class="radio"><label><input value="repeat-y" type="radio">vertical</label></div></li>
+										<li><div class="radio"><label><input value="repeat" type="radio">all</label></div></li>
+									</ul>
+								</div>
+								<div class="pull-right">
+									<h6>alignment</h6>
+									<div id="alignment"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="gradientPresets">
+						<h5>gradients</h5>
+						<ul class="img-presets-list">
+							<li>
+								<div class="preset"></div>
+							</li>
+						</ul>				
+					</div>
+								
+				</div>
+			</section>
+
+			<section id="shadows-panel" class="inspector-panel">
+				<div>
+					<h4 class="bl-panel-heading">shadows <i class="fa fa-minus"></i></h4>
+					<div class="panel-box clearfix">
+						<div id="shadow-knob-container">
+							<input type="text" value="0" bl-knob>
+							<div data-toggle="tooltip" data-placement="top" title="Shadow Color" data-controls="props.color" class="color-picker-trigger"></div>
+						</div>
+						<div class="slider-group">
+							<div class="range-slider">
+								<div class="slider-label">distance</div>
+								<div max="20"></div>
+							</div>
+							<input type="text" class="pretty-input">
+						</div>
+						<div class="slider-group">
+							<div class="range-slider">
+								<div class="slider-label">blur</div>
+								<div max="20"></div>
+							</div>
+							<input type="text" class="pretty-input">
+						</div>
+						<div class="slider-group">
+							<div class="range-slider">
+								<div class="slider-label">spread</div>
+								<div max="20"></div>
+							</div>
+							<input type="text" ng-model="props.spread" class="pretty-input">
+						</div>
+						<select data-width="100%">
+							<option value="boxShadow">box</option>
+							<option value="textShadow">text</option>
+						</select>
+						<select data-width="100%">
+							<option value="">outter</option>
+							<option value="inset">inner</option>
+						</select>
+					</div>
+				</div>
+			</section>
+
+			<section>
+				<div id="padding-panel" class="inspector-panel">
+					<h4 class="bl-panel-heading">padding <i class="fa fa-minus"></i></h4>
+					<div class="clearfix panel-box" >
+						<div class="checkboxes clearfix"></div>
+						<div></div>
+						<div class="clearfix input-boxes"></div>
+					</div>
+				</div>
+
+				<div id="margin-panel" class="inspector-panel">
+					<h4 class="bl-panel-heading">margin <i class="fa fa-minus"></i></h4>
+					<div class="panel-box clearfix" >
+						<section class="checkboxes clearfix"></section>
+						<div></div>
+						<div class="clearfix input-boxes"></div>
+					</div>
+				</div>
+			</section>
+
+			<!-- text style box starts -->
+			<section class="inspector-panel" id="text-panel">
+				<h4 class="bl-panel-heading">textStyle <i class="fa fa-minus"></i></h4>
+				<div id="text-box" class="clearfix panel-box">
+					<div class="clearfix">
+						<select id="el-font-family" data-width="149" class="pull-left">
+							<option value="">font</option>
+							<option value=""></option>
+						</select>
+						<div id="more-fonts" class="pull-right" data-toggle="modal" data-target="#fonts-modal"><i class="fa fa-google"></i></div>
+					</div>
+					
+					<div class="clearfix">
+						<div class="icon-box italic">I</div>
+						<div class="icon-box underline">U</div>
+						<div class="icon-box strike">S</div>
+						<div class="icon-box overline">O</div>
+						<select id="el-font-weight" class="form-control" data-width="65">
+							<option data-font-weight="" value=""></option>
+						</select>
+					</div>
+
+					<div id="el-font-style-box" class="clearfix">
+						<div class="pull-left">
+							<input type="text" id="el-font-size" class="form-control pull-left">
+							
+							<div class="pull-right">
+								<div class="icon-box"><i class="fa fa-align-left"></i> </div>
+								<div class="icon-box"><i class="fa fa-align-center"></i> </div>
+								<div class="icon-box"><i class="fa fa-align-right"></i> </div>
+							</div>
+						</div>
+					</div>
+
+					<div class="clearfix">
+						<div data-controls="inspector.styles.text.color" class="color-picker-trigger" style=""></div>
+					</div>
+				</div>
+			</section>
+			<!-- text style box ends -->
+
+			<!-- border box starts -->
+			<section id="border-box">
+				
+				<div id="border-panel" class="inspector-panel">
+					<h4 class="bl-panel-heading">border <i class="fa fa-minus"></i></h4>
+					<div class="panel-box">
+						<section class="checkboxes clearfix"></section>
+						<div max="20"></div>
+						<div class="clearfix">
+							<div class="color-picker-trigger"></div>
+							<select id="border-style">
+								<option value="none">none</option>
+								<option value="solid">solid</option>
+								<option value="dashed">dashed</option>
+								<option value="dotted">dotted</option>
+								<option value="double">double</option>
+								<option value="groove">groove</option>
+								<option value="ridge">ridge</option>
+								<option value="inset">inset</option>
+								<option value="outset">outset</option>
+							</select>
+						</div>
+						<div class="clearfix input-boxes"></div>
+					</div>
+				</div>
+				
+				<div id="border-radius-panel" class="inspector-panel">
+					<h4 class="bl-panel-heading">borderRoundness <i class="fa fa-minus"></i></h4>
+					<div id="borderRadius-box" class="panel-box clearfix">
+							
+						<section class="checkboxes clearfix">
+							<div class="pretty-checkbox pull-left">    
+							    <input type="checkbox" id="borderRadius.all">
+							    <label for="borderRadius.all"><span class="ch-all"></span><span class="unch-all"></span></label>   
+							</div>
+							<div class="pull-right">
+								<div class="pretty-checkbox">    
+								    <input type="checkbox" id="borderRadius.top">
+								    <label for="borderRadius.top"><span class="ch-top border-top-left"></span><span class="unch-top border-top-left"></span></label>   
+								</div>
+								<div class="pretty-checkbox">    
+								    <input type="checkbox" id="borderRadius.bottom">
+								    <label for="borderRadius.bottom"><span class="ch-bottom border-bottom-left"></span><span class="unch-bottom border-bottom-left"></span></label>   
+								</div>
+								<div class="pretty-checkbox">    
+								    <input type="checkbox" id="borderRadius.right">
+								    <label for="borderRadius.right"><span class="ch-right border-top-right"></span><span class="unch-right border-top-right"></span></label>   
+								</div>
+								<div class="pretty-checkbox">    
+								    <input type="checkbox" id="borderRadius.left">
+								    <label for="borderRadius.left"><span class="ch-left border-bottom-right"></span><span class="unch-left border-bottom-right"></span></label>   
+								</div>
+							</div>
+						</section>
+						<div max="20"></div>
+
+						<div class="clearfix input-boxes radius-boxes">
+							<div class="big-box col-sm-6">
+								<input>
+							</div>
+							<div class="small-boxes col-sm-6">
+								<input>
+								<input>
+								<input>
+								<input>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- /border box ends -->
+
+			<div class="arrow-right" id="color-picker-arrow"></div>
+			<div class="arrow-right" id="background-arrow"></div>
+		</section>
+		<div class="sidebar-toggler right"> <div class="toggler-carret"></div></div>
+	</aside> <!-- /inspector -->
+
+	<div class="modal fade" id="fonts-modal">
+		<div class="modal-dialog modal-lg">
+	    	<div class="modal-content">
+
+	      		<div class="modal-header clearfix">
+	      			<div title="Close Modal" class="fa-stack fa-lg close-modal" data-dismiss="modal">
+                		<i class="fa fa-circle fa-stack-2x"></i>
+                		<i class="fa fa-times fa-stack-1x fa-inverse"></i>
+           		  	</div>
+
+	        		<h4 class="modal-title pull-left"></h4>
+	        		<div class="pagi-container pull-right"><ul class="pagination"></ul></div>
+	      		</div>
+
+	      		<div class="modal-body">
+	        		<ul class="fonts-list">
+	        			<li style="">
+	        				<div class="font-preview">fontsLorem</div>
+	        				<div class="font-details clearfix">
+	        					<div class="pull-left"></div>
+	        				</div>
+	        			</li>
+	        		</ul>
+	      		</div>
+
+	    	</div>
+	  	</div>
+	</div>
+
+	<div class="modal fade" id="images-modal">
+				<div class="modal-dialog">
+			    	<div class="modal-content">
+			      		<div class="modal-header clearfix">
+			        		<button type="button" class="close pull-right" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			        		<h4 class="modal-title pull-left">mediaManager</h4>
+			      		</div>
+			      		<div class="modal-body">
+
+			      			<div class="modal-under-header clearfix">
+			      				<div class="pull-left">
+			      					<p class="info">uploadAndMangeImages</p>
+			      					<p class="info">imageRestrictions</p>
+			      				</div>
+			      				<div class="pull-right">
+			      					<button class="btn btn-primary btn-lg" data-multiple="true"><i class="fa fa-upload"></i> uploadImages</button>
+			      				</div>
+			      			</div>
+
+							<ul class="nav nav-tabs">
+							  <li><a href="">myImages</a></li>
+							  <li><a href="">imageUrl</a></li>
+							</ul>
+
+							<div class="tab-content">
+								<div class="tab-pane clearfix" id="my-images">
+									<div id="images-filter-bar" class="clearfix">
+										<div class="pull-right">
+											<div class="checkbox-btn btn btn-gradient-gray">
+												<input type="checkbox" value="true">
+											</div>
+											<div class="btn-group">
+											  	<button type="button" class="btn btn-gradient-gray btn-sm">date</button>
+											  	<button type="button" class="btn btn-gradient-gray btn-sm">aZ</button>
+											</div>
+											<button class="btn btn-gradient-gray btn-sm"><i class="fa fa-trash"></i> </button>
+											<input type="text">
+										</div>
+									</div>
+							  		<div class="col-sm-2" id="folders-cont">
+							  			<div class="row">
+							  				<ul class="list-unstyled">
+								  				
+								  				<li  data-id="" data-name="">
+								  					<div class="clearfix">
+								  						<span class="pull-left"></span>
+								  						<i data-toggle="tooltip" data-placement="top" title="delete folder" class="fa fa-trash delete-folder pull-right"></i>
+								  					</div>
+								  					<div class="creating-folder">
+								  						<input type="text" name="name" class="form-control">
+								  						<button class="btn btn-sm btn-success"> <i class="fa fa-check"></i></button>
+								  						<button class="btn btn-sm btn-danger"> <i class="fa fa-times"></i></button>
+								  					</div>
+								  				</li>
+								  			</ul>
+								  			<div class="add-folder-cont">
+								  				<button class="btn btn-primary btn-block"><i class="fa fa-folder-open-o"></i> addFolder</button>
+								  			</div>
+							  			</div>
+							  		</div>
+							  		<div class="col-sm-10" id="images-cont">
+							  			<ul class="list-unstyled row">
+							  				<li
+							  					class="col-sm-2"
+							  					data-id="">
+
+							  					<div class="img-wrapper" style=""></div>
+							  					<div class="img-caption">
+							  						<span></span>
+
+								  					<div class="img-actions">
+								  						<i data-toggle="tooltip" data-placement="top" title="Edit" class="fa fa-fw fa-pencil edit-image"></i>
+								  						<i data-toggle="tooltip" data-placement="top" title="Delete" class="fa fa-fw fa-trash-o delete-image"></i>
+								  					</div>
+							  					</div>
+							  				</li>
+							  			</ul>
+
+							  			<div id="upload-container">
+								  			<img class="img-responsive" src="images/filedrop.png">
+				      						<h2>dropImageToUpload</h2>
+				      						<div class="separator"><span>or</span></div>
+				      						<button class="btn btn-success btn-lg" data-multiple="true">selectImageFrom</button>
+								  		</div>
+							  		</div>
+							  	</div>
+							  	<div class="tab-pane" id="url">
+							  		<h2>enterImageWebUrl</h2>
+							  		<input type="text" class="form-control">
+							  			<div class="checkbox">
+									    	<label>
+									      		<input type="checkbox" value="true"> downloadLocally
+									    	</label>
+									  	</div>
+							  		<p>mustBeDirectLink</p>
+							  		<p>imageUrlExample</p>
+							  	</div>
+							</div>
+			      		</div>
+			      		<div class="modal-footer clearfix">
+			      			<p class="pull-left">useImageExpl</p>
+			      			<button class="btn btn-primary btn-lg">useImage</button>
+			      		</div>
+			    	</div>
+			  	</div>
+			</div>
+</section>
+
+<div id="preview-closer" class="hidden">
+	<i class="fa fa-times"></i>
+</div>
