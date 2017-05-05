@@ -1,0 +1,29 @@
+<section id="login-page" class="rtl">
+	<div class="container login-container">
+		<form>
+
+			<img src="images/logo.png" alt="logo" class="logo">
+
+			<div class="alert alert-danger alert-dismissible fade in" role="alert">
+		    	<div class="message"></div>
+		    </div>
+
+			<div class="form-group">
+				<input class="form-control" name="email" type="text" placeholder="ایمیل">
+			</div>
+			<div class="form-group">
+				<input class="form-control" name="password" type="password" placeholder="رمز عبور">
+			</div>
+			<div class="form-group">
+				<input class="form-control" name="repeatPassword" type="password" placeholder="تکرار رمز عبور">
+			</div>
+
+			<p>حساب کاربری دارید؟ <a ui-sref="home">از این جا وارد حساب شوید.</a></p>
+			
+			<div class="login-btn">
+				<button type="submit" class="btn btn-success">ثبت نام</button>
+			</div>
+		</form>
+	</div>
+	<div class="loader"><i class="fa fa-spinner fa-spin"></i></div>
+</section>

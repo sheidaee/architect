@@ -1,0 +1,53 @@
+<div id="new-project-container" class="rtl">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3">
+				<button class="btn btn-primary btn-block start-with-blank">startWithBlank</button>
+
+				<div class="colors-container">
+					<h4>colors</span></h4>
+					<ul class="list-unstyled">
+						<li title="" data-color=""></li>
+					</ul>
+				</div>
+
+				<div class="categories-container">
+					<h4>categories</h4>
+					<ul class="list-unstyled">
+						<li data-cat="">allCategories</li>
+						<li data-cat="category"></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-9">
+				<figure class="col-sm-4">
+					<img class="img-responsive">
+					<figcaption></figcaption>
+				</figure>
+				<div class="no-results">noTemplateMatches</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="project-name-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-left" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title"><i class="fa fa-pencil"></i> ایجاد پروژه جدید</h4>
+            </div>
+            <div class="modal-body">
+                <div class="clearfix">
+                    <div class="col-sm-2 pull-right"><label for="project-name">نام</label></div>
+                    <div class="col-sm-10"><input type="text" class="form-control" name="project-name"></div>
+                </div>
+                <p class="text-danger error"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">انصراف</button>
+                <button type="button" class="btn btn-success pull-left">ایجاد</button>
+            </div>
+        </div>
+    </div>
+</div>

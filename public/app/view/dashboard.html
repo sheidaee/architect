@@ -1,0 +1,73 @@
+<section id="filter-bar" class="rtl">
+    <div class="container">
+
+        <div class="pull-left">
+            <div class="form-group">
+                <label for="name">جستجو</label>
+                <input name="name" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="status">وضعیت</label>
+                <select name="status" class="form-control">
+                    <option value="">همه</option>
+                    <option value="1">منتشر شده</option>
+                    <option value="0">منتشر نشده</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="status">مرتب سازی</label>
+                <select name="status" class="form-control">
+                    <option value="newest">جدید ترین</option>
+                    <option value="oldest">قدیمی ترین</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="pull-right">
+            <a class="btn btn-success">ایجاد پروژه جدید</a>
+        </div>
+
+    </div>
+</section>
+
+<section id="dashboard-container" class="rtl">
+
+    <div class="container">
+
+        <div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            توجه: این سایت ورژن پیش نمایشی است و هر 20 دقیقه اطلاعات پاک می شوند. تمامی پروژه ها، استایل ها، و قالب ها و فایل های آپلود شده پاک خواهند شد و یا به حالت اصلی باز می گردند.
+        </div>
+
+        <ul id="projects-list" class="row">
+            <li class="col-sm-4 col-lg-3 pull-right">
+                <figure>
+                    <div class="header clearfix">
+                        <a title="پیش نمایش پروژه" target="_blank" href="" class="url">نمایش پروژه</a>
+                    </div>
+                    <img bl-open-in-builder class="img-responsive">
+                    <figcaption class="clearfix">
+                        <div class="pull-left name"></div>
+                        <div class="pull-right">
+                            <i title="انتشار پروژه" class="publish-project fa fa-cloud"></i>
+                            <i title="حذف پروژه" class="delete-project fa fa-trash-o"></i>
+                            <i title="ویرایش پروژه" class="edit-project fa fa-pencil"></i>
+                        </div>
+                    </figcaption>
+                    <div class="spinner hidden">
+                        <i class="fa fa-spinner fa-spin"></i>
+                    </div>
+                </figure>
+            </li>
+        </ul>
+
+        <div id="no-projects" class="text-center">
+            <h3>پروژه ای یافت نشد.</h3>
+            <a ui-sref="new" class="btn btn-success">یک پروژه ایجاد کنید</a>
+        </div>
+
+    </div>
+
+</section>
